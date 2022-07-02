@@ -1,0 +1,224 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace loops
+{
+    class Program
+    {
+        static void Player1Wins(string firstPlayerName)// the output for the firstPlayerWins
+        {
+            Console.WriteLine($"{firstPlayerName}   ");
+            Console.WriteLine($"\tYOU ");
+            Console.WriteLine();
+            Console.WriteLine($"w         w   w    w    w ");
+            Console.WriteLine($" w       w    w    w w  w ");
+            Console.WriteLine($"  w  w  w     w    w  w w ");
+            Console.WriteLine($"   w   w      w    w    w ");
+            Console.WriteLine();
+
+        }
+        static void Player2Wins(string secondPlayerName) // the output for the secondPlayerWins
+        {
+            Console.WriteLine($"{secondPlayerName}   ");
+            Console.WriteLine($"\tYOU ");
+            Console.WriteLine();
+            Console.WriteLine($"w         w   w    w    w ");
+            Console.WriteLine($" w       w    w    w w  w ");
+            Console.WriteLine($"  w  w  w     w    w  w w ");
+            Console.WriteLine($"   w   w      w    w    w ");
+            Console.ReadKey();
+        }
+        static void TheEnd()
+        {
+            Console.Clear();
+            Console.WriteLine("THETHETHE THE   THE THETHETHE    ENDENDEND END       END ENDEND       | ");
+            Console.WriteLine("   THE    THE   THE THE          END       END END   END END   END    | ");
+            Console.WriteLine("   THE    THETHETHE THETHE       ENDEND    END    ENDEND END    END   | ");
+            Console.WriteLine("   THE    THE   THE THE          END       END       END END   END    | ");
+            Console.WriteLine("   THE    THE   THE THETHETHE    ENDENDEND END       END ENDEND       . ");
+            Console.ReadKey();
+        }
+        static void PrintDots()
+        {
+            string[] dots = { ".", "..", "...", "....", "....." };
+            for (int i = 0; i < dots.Length; i++)
+            {
+                Console.Clear();
+                Console.Write(dots[i]);
+                Console.WriteLine();
+
+                System.Threading.Thread.Sleep(500);
+
+            }
+            Console.WriteLine();
+            System.Threading.Thread.Sleep(1000);
+            Console.Clear();
+
+        }
+        static void Main(string[] args)
+        {
+        
+            // the game : 
+            // enter the number then wipe it , next player needs to guess
+            // if it was right bigger or smaller / and when its right 
+            // can add how many chances the second player gets 
+
+            int user_input, times;
+            Console.WriteLine("\t\tHello!");
+            System.Threading.Thread.Sleep(2000);
+            // Welcome procedure
+            Console.WriteLine("\t Wellcome To Sergei's First Game !\n\t\t\t\t 'GUESS THE NUMBER'");
+            System.Threading.Thread.Sleep(2000);
+            Console.WriteLine("\tPlease enter the name for the first player  ");
+            String firstPlayerName = Console.ReadLine();
+            System.Threading.Thread.Sleep(2000);
+            PrintDots();//prints the screen with dots ++ UNCOMMENT
+
+
+        EnterTheNumber:
+
+            Console.WriteLine($"\t{firstPlayerName} ");
+            Console.WriteLine(" Please enter a number for the second player to guess from 0 to 10 ");
+            user_input = Convert.ToInt32(Console.ReadLine());
+            // if the number is in range 
+            if (user_input >= 0 && user_input <= 10)
+            {
+            EnterTries:  // in future let the2_player to choose tries //  
+                Console.WriteLine("Please enter number of tries  for the second player from 1 to 3 ");
+                times = Convert.ToInt32(Console.ReadLine());
+                // if the times is in range so the main code of the games starts
+                if (times >= 1 && times <= 3)
+                {
+                    Console.Clear();
+                    System.Threading.Thread.Sleep(1000);
+                    //invites the second player 
+                    Console.WriteLine("The time for the second player to play ");
+                    System.Threading.Thread.Sleep(2000);
+                    Console.WriteLine("Hello  second player...\n\t\t\t Whats your name ? ");
+                    string secondPlayerName = Console.ReadLine(); // the name of second player 
+                    PrintDots();
+                    System.Threading.Thread.Sleep(1000);
+                    Console.WriteLine($"{secondPlayerName}");
+                    Console.WriteLine($"Lets guess the {firstPlayerName}'s number");
+                    System.Threading.Thread.Sleep(2000);
+                    //tries == times in code 
+                    Console.WriteLine("You have only {0} tries to guess", times);
+                    System.Threading.Thread.Sleep(3000);
+                    PrintDots();
+                    Console.WriteLine("PLEASE ENTER YOUR GUESS :");
+                    // the game started and the second player enters numbers till"times" 
+                    int second_user_input = Convert.ToInt32(Console.ReadLine());
+                //  int tries = times;
+                SecondEqualsFirst:
+                    if (second_user_input == user_input)  // if second guess the firsts number 
+                    {
+                        Console.WriteLine($"{second_user_input}    is the right number of  {firstPlayerName} : " + user_input);
+                        Player2Wins(secondPlayerName);// change to second player name //
+                        Console.WriteLine("Do you want to play again ? Y or N ");
+                        string yes = Console.ReadLine();
+                        if (yes == "y")
+                        {
+                            goto EnterTheNumber;
+                        }
+                        else
+                        {
+                            TheEnd();//prints the END 
+                        }
+                    }
+                    else
+                    {
+                        while (times >= 1)       // till you have tries  
+                        {
+                            // if the nuber is bigger 
+                            if ((second_user_input > user_input) && (times >= 1)) 
+                            {
+                                times--; // at first decrease the number of tries
+                                         // left for the loop and second user will see 
+                                Console.WriteLine("the number is wrong and bigger than first users number ");
+
+                                if (times >= 1)   // and only then perform a check 
+                                {
+                                    Console.WriteLine("you have : " + times + " tries left");
+                                    System.Threading.Thread.Sleep(3000);
+                                    Console.Clear();
+                                    Console.WriteLine("PLEASE ENTER YOUR GUESS :");
+                                    second_user_input = Convert.ToInt32(Console.ReadLine());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("YOU DIDNT GUESS !!!");
+                                    Console.WriteLine("YOU LOOSE !!!");
+                                    Player1Wins(firstPlayerName);// player 1 wins  //
+                                    Console.WriteLine("Do you want to play again ? Y or N ");
+                                    string yes = Console.ReadLine();
+                                    if (yes == "y")
+                                    {
+                                        goto EnterTheNumber;
+                                    }
+                                    else
+                                    {
+                                        TheEnd();//prints the END 
+                                    }
+                                }
+                            }
+                            // if ther number is smaller 
+                            else if ((second_user_input < user_input) && (times >= 1)) 
+                            {
+                                times--; // at first decrease the number of
+                                         // tries left for the loop and second user will see
+                                Console.WriteLine("the number is wrong and less than first users number ");
+
+                                if (times >= 1) // and only then perform a check 
+                                {
+                                    Console.WriteLine("you have : " + times + " tries left");
+                                    System.Threading.Thread.Sleep(3000);
+                                    Console.Clear();
+                                    Console.WriteLine("PLEASE ENTER YOUR GUESS :");
+                                    second_user_input = Convert.ToInt32(Console.ReadLine());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("YOU DIDNT GUESS !!!");
+                                    Console.WriteLine("YOU LOOSE !!!");
+                                    Player1Wins(firstPlayerName); // player one wins 
+                                    Console.WriteLine("Do you want to play again ? Y or N ");
+                                    string yes = Console.ReadLine();
+
+                                    if (yes == "y")
+                                    {
+                                        goto EnterTheNumber;
+                                    }
+                                    else
+                                    {
+                                        TheEnd();//prints the END 
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                goto SecondEqualsFirst; // goto right number 
+                            }
+                        }
+                    }
+                }
+                else // if the times is out of range 
+                {
+                    Console.WriteLine(times + "     is wrong input");
+                    Console.WriteLine("you have been asked from '1 to 3' only ");
+                    Console.WriteLine("the number of times is out of range");
+                    goto EnterTries;
+                }
+            }
+            else // if the number is out of range 
+            {
+                Console.WriteLine(user_input + "      is wrong input");
+                Console.WriteLine("you have been asked from '0 to 10' only ");
+                Console.WriteLine("the number is out of range ");
+                goto EnterTheNumber;
+            }
+        }
+    }
+}
